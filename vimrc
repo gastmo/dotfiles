@@ -1,39 +1,9 @@
-" http://dougireton.com/blog/2013/02/23/layout-your-vimrc-like-a-boss/
-"
-" new line with same indentation
-" http://superuser.com/questions/99741
-set autoindent
-set smartindent
-
-map <leader>? :verbose map <CR><CR>
-
-
-"-------- plugins {{{
+" .vimrc
+ 
+" general {{{
 "------------------------------------------------------
-" pathogen - vim plugin manager
-" https://github.com/tpope/vim-pathogen
-execute pathogen#infect()
-
-
-" vimwiki - Personal Wiki for Vim
-" https://github.com/vimwiki/vimwiki
 set nocompatible
-filetype plugin on
-syntax on
-" vimwiki with markdown support
-let g:vimwiki_ext2syntax = {'.md': 'markdown', '.markdown': 'markdown', '.mdown': 'markdown'}
-" helppage -> :h vimwiki-syntax 
 
-
-" vim-instant-markdown - Instant Markdown previews from Vim
-" https://github.com/suan/vim-instant-markdown
-let g:instant_markdown_autostart = 0	" disable autostart
-map <leader>md :InstantMarkdownPreview<CR>
-
-
-"}}}
-"-------- important {{{
-"------------------------------------------------------
 " watch for changes then auto source vimrc
 " http://stackoverflow.com/a/2403926
 augroup myvimrc
@@ -42,7 +12,54 @@ augroup myvimrc
 augroup END
 
 "}}}
-"-------- moving around, searching and patterns {{{
+" plugins {{{
+"------------------------------------------------------
+filetype off
+
+set rtp+=~/.vim/bundle/vundle
+call vundle#begin()
+
+" vundle
+Plugin 'VundleVim/Vundle.vim'
+
+" ultisnips {{{2
+Plugin 'SirVer/ultisnips'
+
+" Trigger configuration. 
+" Do not use <tab> if you use https://github.com/Valloric/YouCompleteMe.
+let g:UltiSnipsExpandTrigger="<tab>"
+let g:UltiSnipsJumpForwardTrigger="<c-b>"
+let g:UltiSnipsJumpBackwardTrigger="<c-z>"
+"}}}
+"
+" vim-snippets {{{2
+Plugin 'honza/vim-snippets'
+"}}}
+
+" vimwiki - Personal Wiki for Vim {{{2
+" https://github.com/vimwiki/vimwiki
+" helppage -> :h vimwiki-syntax 
+Plugin 'vimwiki/vimwiki'
+" vimwiki with markdown support
+let g:vimwiki_ext2syntax = {'.md': 'markdown', '.markdown': 'markdown', '.mdown': 'markdown'}
+
+" vim-instant-markdown - Instant Markdown previews from Vim {{{2
+" https://github.com/suan/vim-instant-markdown
+Plugin 'suan/vim-instant-markdown'
+let g:instant_markdown_autostart = 0	" disable autostart
+map <leader>md :InstantMarkdownPreview<CR>
+
+" vim-coffee-script {{{2
+" https://github.com/kchmck/vim-coffee-script
+Plugin 'kchmck/vim-coffee-script'
+"}}}
+
+call vundle#end()
+
+syntax enable
+filetype plugin indent on 
+"}}}1
+" moving around, searching and patterns {{{
 "------------------------------------------------------
 " move thru word wrapped line
 nnoremap k gk
@@ -63,51 +80,52 @@ nnoremap N Nzzzv
 noremap <silent> <leader><space> :noh<cr>:call clearmatches()<cr>
 
 "}}}
-"-------- tags {{{
+" tags {{{
 "------------------------------------------------------
 "}}}
-"-------- displaying text {{{
+" displaying text {{{
 "------------------------------------------------------
 " unix or dos file format
 " http://stackoverflow.com/a/82743
 map <leader>unix :set fileformat=unix<CR>
 map <leader>dos :set fileformat=dos<CR>
 "}}}
-"-------- syntax, highlighting and spelling {{{
+" syntax, highlighting and spelling {{{
+"------------------------------------------------------
+"syntax on
+"}}}
+" multiple windows {{{
 "------------------------------------------------------
 "}}}
-"-------- multiple windows {{{
+" multiple tab pages {{{
 "------------------------------------------------------
 "}}}
-"-------- multiple tab pages {{{
+" terminal {{{
 "------------------------------------------------------
 "}}}
-"-------- terminal {{{
+" using the mouse {{{
 "------------------------------------------------------
 "}}}
-"-------- using the mouse {{{
+" printing {{{
 "------------------------------------------------------
 "}}}
-"-------- printing {{{
+" messages and info {{{
 "------------------------------------------------------
 "}}}
-"-------- messages and info {{{
-"------------------------------------------------------
-"}}}
-"-------- selecting text {{{
+" selecting text {{{
 "------------------------------------------------------
 " copy or paste from X11 clipboard
 " http://vim.wikia.com/wiki/GNU/Linux_clipboard_copy/paste_with_xclip
 vmap <leader>xyy :!xclip -f -sel clip<CR>
 map <leader>xpp mz:-1r !xclip -o -sel clip<CR>`z
 "}}}
-"-------- editing text {{{
+" editing text {{{
 "------------------------------------------------------
 "}}}
-"-------- tabs and indenting {{{
+" tabs and indenting {{{
 "------------------------------------------------------
-" move between matching opening and ending code; example { code }
-map <tab> %
+set autoindent
+set smartindent
 
 " Set tabstop, softtabstop and shiftwidth to the same value
 " http://vimcasts.org/episodes/tabs-and-spaces/
@@ -122,7 +140,7 @@ function! Stab()
   endif
   call SummarizeTabs()
 endfunction
-  
+
 function! SummarizeTabs()
   try
     echohl ModeMsg
@@ -139,8 +157,21 @@ function! SummarizeTabs()
   endtry
 endfunction
 
+let g:indentguides_state = 0
+function! IndentGuides() " {{{
+    if g:indentguides_state
+        let g:indentguides_state = 0
+        2match None
+    else
+        let g:indentguides_state = 1
+        execute '2match IndentGuides /\%(\_^\s*\)\@<=\%(\%'.(0*&sw+1).'v\|\%'.(1*&sw+1).'v\|\%'.(2*&sw+1).'v\|\%'.(3*&sw+1).'v\|\%'.(4*&sw+1).'v\|\%'.(5*&sw+1).'v\|\%'.(6*&sw+1).'v\|\%'.(7*&sw+1).'v\)\s/'
+    endif
+endfunction " }}}
+hi def IndentGuides guibg=#303030
+nnoremap <leader>I :call IndentGuides()<cr>
+
 "}}}
-"-------- folding {{{
+" folding {{{
 "------------------------------------------------------
 " enable folding; http://vim.wikia.com/wiki/Folding
 set foldmethod=marker
@@ -154,37 +185,37 @@ nnoremap ,z zMzvzz
 
 
 "}}}
-"-------- diff mode {{{
+" diff mode {{{
 "------------------------------------------------------
 "}}}
-"-------- mapping {{{
+" mapping {{{
 "------------------------------------------------------
+let mapleader=" "
 
+map <leader>? :verbose map <CR><CR>
 
+" move between matching opening and ending code; example { code }
+map <tab> %
 
 " quicker command line mode hotkey
-nmap ; :
+" nmap ; :
+
 " reload vimrc manually
 map <leader>reload :source ~/.vimrc<CR>
 
-
 " Don't move on *
-nnoremap * *<c-o>
+" nnoremap * *<c-o>
 
 " Heresy
 inoremap <c-a> <esc>I
 inoremap <c-e> <esc>A
 
-" highlight current word; good to see different code
-nnoremap <silent> <leader>h1 :execute 'match InterestingWord1 /\<<c-r><c-w>\>/'<cr>
-nnoremap <silent> <leader>h2 :execute '2match InterestingWord2 /\<<c-r><c-w>\>/'<cr>
-nnoremap <silent> <leader>h3 :execute '3match InterestingWord3 /\<<c-r><c-w>\>/'<cr>
-
 " Clean trailing whitespace
 nnoremap <leader>W mz:%s/\s\+$//<cr>:let @/=''<cr>`z
 
 " Change case
-inoremap <C-u> <esc>mzgUiw`za
+" inoremap <C-u> <esc>mzgUiw`za
+inoremap <C-u> <esc>mzgUaw`za
 
 " Emacs bindings in command line mode
 " cnoremap <c-a> <home>
@@ -196,8 +227,8 @@ nnoremap vv ^vg_
 
 
 " color highlight line
-"set cul                                           " highlight current line
-"hi CursorLine term=none cterm=none ctermbg=3      " adjust color
+"set cul                                         " highlight current line
+"hi CursorLine term=none cterm=none ctermbg=8    " adjust color
 
 
 " reopen file where you left off at
@@ -214,19 +245,19 @@ augroup line_return
 augroup END
 
 "}}}
-"-------- reading and writing files {{{
+" reading and writing files {{{
 "------------------------------------------------------
 "}}}
-"-------- the swap file {{{
+" the swap file {{{
 "------------------------------------------------------
 "}}}
-"-------- command line editing {{{
+" command line editing {{{
 "------------------------------------------------------
 " write file if you forgot to give it sudo permission
 " tutorial video: http://www.youtube.com/watch?v=C6xqO4Z1nIo
 map <leader>sudo :w !sudo tee % <CR><CR>
 "}}}
-"-------- executing external commands {{{
+" executing external commands {{{
 "------------------------------------------------------
 
 
@@ -247,22 +278,20 @@ map <leader>yt :exec '!cd ~/Downloads; youtube-dl ' . shellescape(getline('.')) 
 map <leader>wg :exec '!cd ~/Downloads; wget -N -c ' . shellescape(getline('.')) <CR><CR>
 
 
-
 "}}}
-"-------- running make and jumping to errors {{{
+" running make and jumping to errors {{{
 "------------------------------------------------------
 "}}}
-"-------- language specific {{{
+" language specific {{{
 "------------------------------------------------------
 "}}}
-"-------- multi-byte characters {{{
+" multi-byte characters {{{
 "------------------------------------------------------
 "}}}
-"-------- various {{{
+" various {{{
 "------------------------------------------------------
 "}}}
-
-"-------- bookmarks {{{
+" bookmarks {{{
 "------------------------------------------------------
 " save bookmarks on exit
 " http://stackoverflow.com/a/8958141
@@ -271,22 +300,19 @@ map <leader>wg :exec '!cd ~/Downloads; wget -N -c ' . shellescape(getline('.')) 
 set viminfo='1000,f1
 
 "}}}
-
-
+" encoding {{{
 "------------------------------------------////
-"	    VIM CONFIGURATION
-"------------------------------------------////
-" located on ~/.vimrc
-"set t_Co=256
 
 scriptencoding utf-8
 set encoding=utf-8
 "set listchars=trail:·,precedes:«,extends:»,eol:↲,tab:▸\
 
-"-------- Visual {{{
+"}}}
+" Visual {{{
 "------------------------------------------------------
 syntax on 			" enable color syntax
-set number 			" show line numbers on left side
+set number			" show line numbers on left side
+set relativenumber		" show relative line numbers
 "set modeline
 set ls=2			" display jilename statusbar
 set ignorecase 			" ignore case when searching
@@ -302,69 +328,21 @@ set title			" show title in console title bar
 " toggle absolute and relative numbers
 " http://www.reddit.com/r/vim/comments/vowr6/numbersvim_better_line_numbers_for_vim/
 " auto change numbers on mode switch
-silent! autocmd InsertEnter * :set number
+silent! autocmd InsertEnter * :set norelativenumber
 silent! autocmd InsertLeave * :set relativenumber
 nnoremap <F2> :se <c-r>=&rnu?"":"r"<CR>nu<CR>
 " toggle absolute,relative, and no numbers
-" map <Leader>nn :set <c-r>={'00':'','01':'r','10':'nor'}[&rnu.&nu]<CR>nu<CR>
+"map <Leader>nn :set <c-r>={'00':'','01':'r','10':'nor'}[&rnu.&nu]<CR>nu<CR>
 
 "}}}
-"-------- Themes {{{
+" Themes {{{
 "------------------------------------------------------
-syntax enable
 "set background=dark	" set background dark color
 set background=light	" set background light color
-"}}}
-"-------- New Shit {{{
-"------------------------------------------------------
-" http://blog.bodhizazen.net/linux/command-line-spell-checking/
-" Show matching [] and {}
-"	set showmatch
-"
-"	" Spell check on
-"	set spell spelllang=en_us
-"	setlocal spell spelllang=en_us
-"
-"	" Toggle spelling with the F7 key
-"	nn <F7> :setlocal spell! spelllang=en_us<CR>
-"	imap <F7> <C-o>:setlocal spell! spelllang=en_us<CR>
-"
-"	" Spelling
-"	highlight clear SpellBad
-"	highlight SpellBad term=standout ctermfg=1 term=underline cterm=underline
-"	highlight clear SpellCap
-"	highlight SpellCap term=underline cterm=underline
-"	highlight clear SpellRare
-"	highlight SpellRare term=underline cterm=underline
-"	highlight clear SpellLocal
-"	highlight SpellLocal term=underline cterm=underline
-"
-"	" where it should get the dictionary files
-"	let g:spellfile_URL = 'http://ftp.vim.org/vim/runtime/spell'
-
+colorscheme torte
 "}}}
 " Indent Guides {{{
-
-let g:indentguides_state = 0
-function! IndentGuides() " {{{
-    if g:indentguides_state
-        let g:indentguides_state = 0
-        2match None
-    else
-        let g:indentguides_state = 1
-        execute '2match IndentGuides /\%(\_^\s*\)\@<=\%(\%'.(0*&sw+1).'v\|\%'.(1*&sw+1).'v\|\%'.(2*&sw+1).'v\|\%'.(3*&sw+1).'v\|\%'.(4*&sw+1).'v\|\%'.(5*&sw+1).'v\|\%'.(6*&sw+1).'v\|\%'.(7*&sw+1).'v\)\s/'
-    endif
-endfunction " }}}
-hi def IndentGuides guibg=#303030
-nnoremap <leader>I :call IndentGuides()<cr>
-
 " }}}
-
-" Send visual selection to gist.github.com as a private, filetyped Gist
-" Requires the gist command line too (brew install gist)
-" vnoremap <leader>G :w !gist -p -t %:e \| pbcopy<cr>
-" vnoremap <leader>UG :w !gist -p \| pbcopy<cr>
-
 " Visual Mode */# from Scrooloose {{{
 
 function! s:VSetSearch()
@@ -378,9 +356,8 @@ vnoremap * :<C-u>call <SID>VSetSearch()<CR>//<CR><c-o>
 vnoremap # :<C-u>call <SID>VSetSearch()<CR>??<CR><c-o>
 
 " }}}
-
-
-" Word Processor Mode
+" Word Processor Mode {{{
+"------------------------------------------------------
 " http://jasonheppler.org/2012/12/05/word-processor-mode-in-vim/
 " http://robots.thoughtbot.com/wrap-existing-text-at-80-characters-in-vim
 func! WordProcessorMode()
@@ -397,16 +374,18 @@ com! WP call WordProcessorMode()
 " http://robots.thoughtbot.com/wrap-existing-text-at-80-characters-in-vim
 " http://www.drbunsen.org/writing-in-vim/
 
+"}}}
 "{{{ Word Wrapping
+"------------------------------------------------------
 " better word wrapping: breaks at spaces or hyphens
 set formatoptions=l
 set lbr
 
 "}}}
-
-" Ranger File Browser in Vim
+" ranger file browser {{{
+"------------------------------------------------------
 " http://www.everythingcli.org/use-ranger-as-a-file-explorer-in-vim/
-function RangerExplorer()
+function! RangerExplorer()
     exec "silent !ranger --choosefile=/tmp/vim_ranger_current_file " . expand("%:p:h")
     if filereadable('/tmp/vim_ranger_current_file')
         exec 'edit ' . system('cat /tmp/vim_ranger_current_file')
@@ -414,28 +393,6 @@ function RangerExplorer()
     endif
     redraw!
 endfun
-map <Leader>x :call RangerExplorer()<CR>
+map <Leader>r :call RangerExplorer()<CR>
 
-
-
-
-
-" Block Colors 
-" let g:blockcolor_state = 0
-" function! BlockColor() " 
-"     if g:blockcolor_state
-"         let g:blockcolor_state = 0
-"         call matchdelete(77881)
-"         call matchdelete(77882)
-"         call matchdelete(77883)
-"         call matchdelete(77884)
-"         call matchdelete(77885)
-"     else
-"         let g:blockcolor_state = 1
-"         call matchadd("BlockColor1", '^ \{4}.*', 1, 77881)
-"         call matchadd("BlockColor2", '^ \{8}.*', 2, 77882)
-"         call matchadd("BlockColor3", '^ \{12}.*', 3, 77883)
-"         call matchadd("BlockColor4", '^ \{16}.*', 4, 77884)
-"         call matchadd("BlockColor5", '^ \{20}.*', 5, 77885)
-"     endif
-" endfunction " 
+"}}}
