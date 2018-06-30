@@ -5,25 +5,14 @@
 
 
 ### Fresh Install Info
-    sudo pacman -S git stow
+    sudo pacman -S base-devel git 
     cd ~
     git clone https://github.com/gastmo/dotfiles.git
-    mkdir -p ~/Downloads/stowbackup
-    mv ~/.bashrc ~/Downloads/stowbackup
-    # symlink all files in dotfiles dir to home dir
-    cd ~/dotfiles
+    cd dotfiles
+    ./install
     
-    # link only folders (trailing slash)
-    stow -v -t ~ */
-        # delete (-D flag)
-        stow -v -D -t ~ */
-        stow -v -D -t ~ tmux
-        # redo link (-R)
-        stow -v -R -t ~ */
-        stow -v -R -t ~ tmux
     sudo pacman -S zsh zsh-completions
     chsh -s /usr/bin/zsh
-    cd ~/Public/dotfiles/zshrc
     git clone https://github.com/robbyrussell/oh-my-zsh.git
     
 
@@ -41,8 +30,6 @@
     trash-cli
     urlview 
     cava
-
-    
 
 ### Arch AUR Specific
     fasd fzf mountie 
