@@ -12,18 +12,10 @@ augroup myvimrc
 augroup END
 
 "}}}
-" plugins {{{
+" plugins {{{1
 "------------------------------------------------------
-filetype off
-
-set rtp+=~/.vim/bundle/vundle
-call vundle#begin()
-
-" vundle
-Plugin 'VundleVim/Vundle.vim'
 
 " ultisnips {{{2
-Plugin 'SirVer/ultisnips'
 
 " Trigger configuration. 
 " Do not use <tab> if you use https://github.com/Valloric/YouCompleteMe.
@@ -31,34 +23,25 @@ let g:UltiSnipsExpandTrigger="<tab>"
 let g:UltiSnipsJumpForwardTrigger="<c-b>"
 let g:UltiSnipsJumpBackwardTrigger="<c-z>"
 "}}}
-"
-" vim-snippets {{{2
-Plugin 'honza/vim-snippets'
-"}}}
-
 " vimwiki - Personal Wiki for Vim {{{2
 " https://github.com/vimwiki/vimwiki
 " helppage -> :h vimwiki-syntax 
-Plugin 'vimwiki/vimwiki'
 " vimwiki with markdown support
 let g:vimwiki_ext2syntax = {'.md': 'markdown', '.markdown': 'markdown', '.mdown': 'markdown'}
 
 " vim-instant-markdown - Instant Markdown previews from Vim {{{2
 " https://github.com/suan/vim-instant-markdown
-Plugin 'suan/vim-instant-markdown'
 let g:instant_markdown_autostart = 0	" disable autostart
 map <leader>md :InstantMarkdownPreview<CR>
 
 " vim-coffee-script {{{2
 " https://github.com/kchmck/vim-coffee-script
-Plugin 'kchmck/vim-coffee-script'
 "}}}
 
-call vundle#end()
 
 syntax enable
 filetype plugin indent on 
-"}}}1
+"}}}
 " moving around, searching and patterns {{{
 "------------------------------------------------------
 " move thru word wrapped line
