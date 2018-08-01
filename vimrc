@@ -11,6 +11,8 @@ augroup myvimrc
     au BufWritePost .vimrc,_vimrc,vimrc,.gvimrc,_gvimrc,gvimrc so $MYVIMRC | if has('gui_running') | so $MYGVIMRC | endif
 augroup END
 
+let mapleader=" "
+
 "}}}
 " plugins {{{1
 "------------------------------------------------------
@@ -173,8 +175,6 @@ nnoremap ,z zMzvzz
 "}}}
 " mapping {{{
 "------------------------------------------------------
-let mapleader=" "
-
 map <leader>? :verbose map <CR><CR>
 
 " move between matching opening and ending code; example { code }
@@ -297,7 +297,7 @@ syntax on 			" enable color syntax
 set number			" show line numbers on left side
 set relativenumber		" show relative line numbers
 "set modeline
-set ls=2			" display jilename statusbar
+set ls=2			" display filename statusbar
 set ignorecase 			" ignore case when searching
 set hlsearch 			" highlight searches
 set incsearch			" increamental search, find as you type word
@@ -305,7 +305,7 @@ set title			" show title in console title bar
 "set cursorcolumn		" show column highlight
 "set cursorline			" show line highlight
 "set mouse-=a			" disable mouse automatically entering visual mode
-"set mouse=a			" enable mouse support and activate visual mode with dragging
+set mouse=a			" enable mouse support and activate visual mode with dragging
 
 
 " toggle absolute and relative numbers
@@ -322,7 +322,7 @@ nnoremap <F2> :se <c-r>=&rnu?"":"r"<CR>nu<CR>
 "------------------------------------------------------
 "set background=dark	" set background dark color
 set background=light	" set background light color
-colorscheme desert
+colorscheme torte
 "}}}
 " Indent Guides {{{
 " }}}
@@ -382,7 +382,7 @@ map <Leader>r :call RangerExplorer()<CR>
 " Sane vim defaults for ArchLabs{{{
 
 " Arch defaults
-runtime! archlinux.vim
+" runtime! archlinux.vim
 
 
 set clipboard^=unnamedplus  " system clipboard (requires +clipboard)
@@ -394,16 +394,15 @@ set wildmenu                " Tab completion menu when using command mode
 "set shortmess+=aAcIws       " Hide or shorten certain messages
 
 " enable mouse.. sgr is better but not every term supports it
-"set mouse=a
 if has('mouse_sgr')
     set ttymouse=sgr
 endif
 
 " syntax highlighting with true colors in the terminal
 "syntax enable
-if has('termguicolors') && $DISPLAY !=? ''
-    set termguicolors
-endif
+"if has('termguicolors') && $DISPLAY !=? ''
+"    set termguicolors
+"endif
 
 " paste while in insert mode
 inoremap <silent><C-v> <Esc>:set paste<CR>a<C-r>+<Esc>:set nopaste<CR>a
