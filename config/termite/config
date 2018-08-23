@@ -19,7 +19,7 @@ browser = exo-open
 filter_unmatched_urls = true
 
 [colors]
-background = rgba(40,45,55,0.90)
+background = rgba(35,45,45,0.90)
 # background = rgba(43,48,59,0.80)
 foreground = #c0c5ce
 foreground_bold = #c0c5ce

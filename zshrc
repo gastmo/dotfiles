@@ -49,6 +49,7 @@ setopt HIST_FIND_NO_DUPS
 setopt HIST_VERIFY
 setopt SHARE_HISTORY
 setopt INTERACTIVE_COMMENTS        # pound sign in interactive prompt
+
 HISTFILE=~/.zsh_history            # where to save zsh history
 HISTSIZE=10000
 SAVEHIST=10000
@@ -74,8 +75,6 @@ bindkey -v
 autoload -U edit-command-line
 zle -N edit-command-line
 bindkey -M vicmd v edit-command-line
-
-
 
 # no delay entering normal mode
 # https://github.com/pda/dotzsh/blob/master/keyboard.zsh#L10
@@ -477,28 +476,6 @@ setopt AUTO_PUSHD        # This makes cd=pushd
 
 
 # }}}
-#-------- Empty {{{
-#------------------------------------------------------
-#
-
-
-# }}}
-#-------- Empty {{{
-#------------------------------------------------------
-#
-
-
-# }}}
-#-------- Empty {{{
-#------------------------------------------------------
-#
-
-
-# }}}
-
-
-
-
 # #{{{ Completion Stuff
 #
 # bindkey -M viins '\C-i' complete-word
@@ -560,7 +537,6 @@ setopt AUTO_PUSHD        # This makes cd=pushd
 # zstyle ':completion::approximate*:*' prefix-needed false
 #
 # #}}}
-
 # #{{{ Key bindings
 #
 # # Who doesn't want home and end to work?
