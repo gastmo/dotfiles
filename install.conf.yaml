@@ -7,11 +7,13 @@
 # - clean: ['~']
 
 - link:
+    ~/.config/termite: config/termite
     ~/.dotfiles: ''
     ~/.tmux.conf: tmux.conf
 #   ~/.vim: vim
     ~/.vimrc: vimrc
     ~/.xinitrc: xinitrc
+    ~/.zshrc: zshrc
 
 - shell:
     - [git submodule update --init --recursive, Installing submodules]
