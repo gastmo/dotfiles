@@ -7,7 +7,7 @@
 # - clean: ['~']
 
 - link:
-    ~/.config/termite: config/termite
+    ~/.config/termite/config: config/termite/config
     ~/.dotfiles: ''
     ~/.tmux.conf: tmux.conf
 #   ~/.vim: vim
