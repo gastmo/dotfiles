@@ -7,11 +7,21 @@
 # - clean: ['~']
 
 - link:
+    ~/.config: config
     ~/.dotfiles: ''
+    ~/.bash_logout: bash_logout
+    ~/.bash_profile: bash_profile
+    ~/.bashrc: bashrc
+    ~/.dmrc: dmrc
+    ~/.inputrc: inputrc
     ~/.tmux.conf: tmux.conf
 #   ~/.vim: vim
     ~/.vimrc: vimrc
     ~/.xinitrc: xinitrc
+    ~/.xprofile: xprofile
+    ~/.Xresources: Xresources
+    ~/.zprofile: zprofile
+    ~/.zshrc: zshrc
 
 - shell:
     - [git submodule update --init --recursive, Installing submodules]

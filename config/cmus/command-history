@@ -1,9 +1,0 @@
-q
-fset 90s=date>=1990&date<2000
-add /run/media/gavin/TOSHIBA EXT/Music/
-clear
-add Music/
-add Mezzanine/
-live-filter 
-add %
-add
