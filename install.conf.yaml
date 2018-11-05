@@ -7,11 +7,8 @@
 # - clean: ['~']
 
 - link:
-<<<<<<< HEAD
-    ~/.config: config
-=======
+    ~/.config/ranger: config/ranger
     ~/.config/termite/config: config/termite/config
->>>>>>> 95821e5177c58103e99301bc551a43e71bdc2835
     ~/.dotfiles: ''
     ~/.bash_logout: bash_logout
     ~/.bash_profile: bash_profile
@@ -22,12 +19,9 @@
 #   ~/.vim: vim
     ~/.vimrc: vimrc
     ~/.xinitrc: xinitrc
-<<<<<<< HEAD
     ~/.xprofile: xprofile
     ~/.Xresources: Xresources
     ~/.zprofile: zprofile
-=======
->>>>>>> 95821e5177c58103e99301bc551a43e71bdc2835
     ~/.zshrc: zshrc
 
 - shell:
