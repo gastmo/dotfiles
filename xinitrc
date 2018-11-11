@@ -53,7 +53,10 @@ xset m 1/1
 # check XKB options with:
 # grep -E "(ctrl|caps|shift|alt|win|super):" /usr/share/X11/xkb/rules/base.lst
 setxkbmap -option ctrl:nocaps,shift:both_capslock
-xcape
+xcape &
+
+# Startup udiskie to auto-mount media.
+udiskie -at &
 
 # Do NOT put commands below the exec lines
 case $session in

@@ -22,6 +22,7 @@
     ~/.xprofile: xprofile
     ~/.Xresources: Xresources
     ~/.zprofile: zprofile
+    ~/.zimrc: zimrc
     ~/.zshrc: zshrc
 
 - shell:
