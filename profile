@@ -2,13 +2,16 @@
 #
 # set environment common to both Zsh and Bash
 
+export TERMINAL="termite"
+export PAGER="less" 	# vimpager
 export EDITOR="vim"
 export VISUAL="vim"
+export FILEMANGER="ranger"
 export BROWSER="vimb"
 
 # nnn variables
 
-export NNN_BMS='d:~/Documents;D:~/Downloads;p:~/Pictures;v:~/Videos;m:~/Music;w:~/Working'
+export NNN_BMS='c:~/Configuration;d:~/Documents;D:~/Downloads;e:/etc;p:~/Pictures;m:/mnt;v:~/Videos;w:~/Working'
 export NNN_USE_EDITOR=1
 export DISABLE_FILE_OPEN_ON_NAV=1
 

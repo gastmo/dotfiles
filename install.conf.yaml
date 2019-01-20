@@ -9,20 +9,20 @@
 - link:
     ~/.config/ranger: config/ranger
     ~/.config/termite/config: config/termite/config
-    ~/.dotfiles: ''
     ~/.bash_logout: bash_logout
     ~/.bash_profile: bash_profile
     ~/.bashrc: bashrc
-    ~/.dmrc: dmrc
+#   ~/.dmrc: dmrc
     ~/.inputrc: inputrc
+    ~/.profile: profile
     ~/.tmux.conf: tmux.conf
-#   ~/.vim: vim
+    ~/.vim: vim
     ~/.vimrc: vimrc
     ~/.xinitrc: xinitrc
     ~/.xprofile: xprofile
     ~/.Xresources: Xresources
-    ~/.zprofile: zprofile
     ~/.zimrc: zimrc
+    ~/.zprofile: zprofile
     ~/.zshrc: zshrc
 
 - shell:
